@@ -1,0 +1,14 @@
+#ใช้ Base Image ที่มี Java ติดตั้งอยู่ (แนะนำ eclipse-temurin หรือ openjdk)
+FROM eclipse-temurin:17-jdk
+
+# กำหนดตำแหน่งทำงานใน container
+WORKDIR /app
+
+#COPY target/*.jar app.jar
+COPY build/libs/*.war app.war
+
+# คำสั่งสำหรับรัน application
+ENTRYPOINT ["java", "-jar", "app.war"]
+
+# เปิด port
+EXPOSE 8080

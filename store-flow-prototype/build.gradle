@@ -1,0 +1,83 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '4.0.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'io.freefair.lombok' version '8.6' // Use a recent version
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Prototype project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+def jjwtVersion = '0.11.5'
+
+dependencies {
+	//Spring Security.
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+
+	//Lombok
+	compileOnly("org.projectlombok:lombok:1.18.42")
+	annotationProcessor("org.projectlombok:lombok:1.18.42")
+	testCompileOnly("org.projectlombok:lombok:1.18.42")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+	
+	//Spring Boot
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat-runtime'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	
+	//Spring JPA
+	// Spring Data JPA starter for simplified database access
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    
+    
+    implementation 'org.apache.commons:commons-lang3:3.14.0' // Use the latest version
+    
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"// JJWT API
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"// JJWT implementation (runtime scope is often sufficient)
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"// JJWT Jackson serializer/deserializer (runtime scope is often sufficient)
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    
+    
+    //Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    
+    
+    //prometheus
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:3.3.4'
+    
+    //swagger
+    // สำหรับ Spring Boot 4.x แนะนำให้ใช้ springdoc-openapi v2.8.0 ขึ้นไป
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.0'
+    
+    
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+test {
+    enabled = false
+}

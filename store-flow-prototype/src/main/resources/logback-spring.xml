@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Setting up log path and log file name -->
+    <property name="LOG_PATH" value="/logs_program" />
+    <property name="LOG_FILE_NAME" value="application_logback" />
+
+    <!-- Setting up logging pattern for console logging -->
+    <appender name="ConsoleOutput"
+        class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %white(%d{ISO8601}) %highlight(%-5level) [%yellow(%t)] : %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- Setting the filename and logging pattern for log file -->
+    <appender name="LogFile"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+        <encoder
+            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level : %msg%n
+            </Pattern>
+        </encoder>
+      
+        <!-- Setting up a rolling policy with rolling done daily -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/archived/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            
+            
+            <!--  file size is 10MB -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>  
+            
+            <!-- Set record 30 days and all size sum 3 GB. -->
+            <maxHistory>30</maxHistory>
+            <!-- <totalSizeCap>3GB</totalSizeCap> -->
+            <!-- Set record 30 days -->
+            
+        </rollingPolicy>
+    </appender>
+
+    <!-- Logging at INFO level -->
+    <root level="debug">
+        <appender-ref ref="LogFile" />
+        <appender-ref ref="ConsoleOutput" />
+    </root>
+    
+</configuration>
