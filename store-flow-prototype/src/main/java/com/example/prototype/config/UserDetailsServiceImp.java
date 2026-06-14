@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.prototype.entity.master.Users;
-import com.example.prototype.repository.UsersRepository;
+import com.example.prototype.repository.jpa.UsersRepository;
 import com.example.prototype.services.UserDetailImp;
 
 @Primary

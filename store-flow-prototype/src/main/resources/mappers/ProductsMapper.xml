@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.example.prototype.repository.mapper.MapperProductsRepository">
+
+	<select id="search"
+		parameterType="com.example.prototype.bean.request.ProductsFormRequest"
+		resultType="com.example.prototype.dto.ProductsDto">
+		select
+		p.name_th as 'productNameTh',
+		p.name_en as 'productNameEn' ,
+		p.bar_code as 'barCode',
+		ped.cost_price as 'costPrice',
+		ped.sell_price as 'sellPrice',
+		ped.expire_date as 'expireDate',
+		ps.code as 'statusCode',
+		ps.name_th as 'statusNameTh',
+		ps.name_en as 'statusNameEn'
+		from MS_PRODUCTS p
+		left join MS_PRODUCT_GROUPS pg on p.product_group_code = pg.code
+		left join TR_PRODUCT_EXPIRE_DATE ped on p.code = ped.product_code
+		left join MS_PRODUCT_STATUS ps on ped.product_status_code = ps.code
+		<where>
+			<if test=" null != searchNameTh and '' != searchNameTh  ">
+				AND p.name_th like concat('%', #{searchNameTh} ,'%')
+			</if>
+
+			<if test=" null != searchNameEn and '' != searchNameEn ">
+				AND p.name_en like concat('%', #{searchNameEn} ,'%')
+			</if>
+
+			<if test=" '' != searchBarCode and null != searchBarCode ">
+				AND p.bar_code like concat('%', #{searchBarCode} ,'%')
+			</if>
+
+			<if test=" null != searchMinCostPrice ">
+				AND ped.cost_price &gt;= #{searchMinCostPrice}
+			</if>
+
+			<if test=" null != searchMaxCostPrice ">
+				AND ped.cost_price &lt;= #{searchMaxCostPrice}
+			</if>
+
+			<if test=" null != searchMinSellPrice ">
+				AND ped.sell_price &gt;= #{searchMinSellPrice}
+			</if>
+
+			<if test=" null != searchMaxSellPrice ">
+				AND ped.sell_price &lt;= #{searchMaxSellPrice}
+			</if>
+
+			<if test=" null != searchStartDate ">
+				AND DATE(ped.expire_date) &gt;= DATE(#{searchStartDate})
+			</if>
+
+			<if test=" null != searchEndDate ">
+				AND DATE(ped.expire_date) &lt;= DATE(#{searchEndDate})
+			</if>
+
+			<if test=" null != searchStatusCode ">
+				AND ps.code = #{searchStatusCode}
+			</if>
+		</where>
+	</select>
+</mapper>

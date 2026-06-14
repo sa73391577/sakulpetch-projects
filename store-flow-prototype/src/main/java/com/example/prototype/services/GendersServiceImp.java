@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.prototype.entity.master.Genders;
-import com.example.prototype.repository.GendersRepository;
+import com.example.prototype.repository.jpa.GendersRepository;
 
 
 @Service

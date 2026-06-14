@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.prototype.bean.UserBean;
 import com.example.prototype.entity.redis.UserProfileRedis;
-import com.example.prototype.repository.UsersRepository;
+import com.example.prototype.repository.jpa.UsersRepository;
 import com.example.prototype.repository.redis.UserProfileRedisRepo;
 
 import java.security.Key;

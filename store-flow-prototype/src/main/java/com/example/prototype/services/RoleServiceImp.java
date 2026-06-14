@@ -9,7 +9,7 @@ import com.example.prototype.Constants;
 import com.example.prototype.bean.RoleBean;
 import com.example.prototype.bean.request.RoleFormRequestBean;
 import com.example.prototype.entity.master.Roles;
-import com.example.prototype.repository.RolesRepository;
+import com.example.prototype.repository.jpa.RolesRepository;
 
 @Service
 public class RoleServiceImp implements RoleService {
