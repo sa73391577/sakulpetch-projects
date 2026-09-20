@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "talent-hub-web": {
+    "store-flow-prototype": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -109,13 +109,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "prod": {
-              "buildTarget": "talent-hub-web:build:prod"
+              "buildTarget": "store-flow-prototype:build:prod"
             },
             "dev": {
-              "buildTarget": "talent-hub-web:build:dev"
+              "buildTarget": "store-flow-prototype:build:dev"
             },
             "uat": {
-              "buildTarget": "talent-hub-web:build:uat"
+              "buildTarget": "store-flow-prototype:build:uat"
             }
           },
           "defaultConfiguration": "dev"
@@ -123,7 +123,7 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "buildTarget": "talent-hub-web:build:dev"
+            "buildTarget": "store-flow-prototype:build:dev"
           }
         }
       }

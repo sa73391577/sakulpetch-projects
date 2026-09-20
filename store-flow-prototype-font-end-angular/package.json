@@ -1,5 +1,5 @@
 {
-  "name": "talent-hub-web",
+  "name": "store-flow-prototype",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "node --max-old-space-size=512 ./node_modules/@angular/cli/bin/ng build --configuration production --source-map=false",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:talent-hub-web": "node dist/talent-hub-web/server/server.mjs"
+    "serve:ssr:store-flow-prototype": "node dist/store-flow-prototype/server/server.mjs"
   },
   "private": true,
   "packageManager": "npm@11.11.0",

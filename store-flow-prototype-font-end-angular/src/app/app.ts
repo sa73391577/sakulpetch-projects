@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('talent-hub-web');
+  protected readonly title = signal('store-flow-prototype');
   private translate = inject(TranslateService);
 
   constructor() {
