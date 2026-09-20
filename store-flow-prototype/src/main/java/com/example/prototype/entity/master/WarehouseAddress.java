@@ -15,8 +15,8 @@ import lombok.Setter;
 
 @Getter @Setter
 @Entity
-@Table(name = "MS_SUB_DISTRICTS")
-public class SubDistricts extends BaseEntity {
+@Table(name = "MS_WAREHOUSE_ADDRESS")
+public class WarehouseAddress extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +26,17 @@ public class SubDistricts extends BaseEntity {
 	@Column(name="code")
 	private String code;
 	
-	@Column(name="zip_code")
-	private String zipCode;
+	@Column(name="house_no")
+	private String houseNo;
 	
-	@Column(name="name_th")
-	private String nameTh;
+	@Column(name="telephone")
+	private String telephone;
 	
-	@Column(name="name_en")
-	private String nameEn;
+	@Column(name="mobile_phone")
+	private String mobilePhone;
 	
 	@ManyToOne
-	@JoinColumn(name = "district_code", referencedColumnName = "code")
-	private Districts districts;
+	@JoinColumn(name = "sub_district_code", referencedColumnName = "code")
+	private SubDistricts subDistricts;
+	
 }

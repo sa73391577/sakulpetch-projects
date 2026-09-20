@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    environment {
+        // กำหนดชื่อสำหรับ Docker Container และ Image
+        CONTAINER_NAME = "prototype-api-backend"
+        IMAGE_NAME     = "prototype-api-backend:1.0.0"
+    }
+
+    stages {
+        stage('Check & Clean Container') {
+            steps {
+                echo '=== 1. ตรวจสอบและลบ Container เก่า (ถ้ามี) ==='
+                script {
+                    sh '''
+                        if [ "$(docker ps -aq -f name=^${CONTAINER_NAME}$)" ]; then
+                            echo "พบ Container เก่าชื่อ ${CONTAINER_NAME} -> กำลังลบออก..."
+                            docker rm -f ${CONTAINER_NAME}
+                        else
+                            echo "ไม่พบ Container เก่า สามารถดำเนินการต่อได้"
+                        fi
+                    '''
+                }
+            }
+        }
+
+        stage('Compile & Gradle Build') {
+            steps {
+                echo '=== 2. กำลังทำการทดสอบและ Build โปรเจกต์ด้วย Gradle ==='
+                // ให้สิทธิ์การรันไฟล์ gradlew (เผื่อไม่ได้ตั้งค่าไว้ใน Git) และสั่ง Build
+                // คำสั่ง -x test ใช้สำหรับข้ามขั้นตอนการรันเทส หากต้องการให้รันเทสด้วยให้ลบออกได้ครับ
+                sh '''
+                    chmod +x gradlew
+                    ./gradlew clean build -x test \
+                      -Dorg.gradle.internal.http.connectionTimeout=60000 \
+                      -Dorg.gradle.internal.http.socketTimeout=60000
+                '''
+            }
+        }
+        
+       	/*stage('Docker Deploy with Compose'){
+            steps{
+                echo '=== 3. ติดตั้งเครื่องมือภายใน Workspace และ Deploy ด้วย Docker Compose ==='
+                sh '''
+                    echo "-> สร้างโฟลเดอร์สำหรับเก็บปลั๊กอินส่วนตัวของ Jenkins..."
+                    mkdir -p ./tools
+                    
+                    echo "-> ดาวน์โหลด Docker Compose ตัวเต็มแบบไม่ใช้ตัวแปรสตริง..."
+                    # ดาวน์โหลดตรงมาไว้ที่โฟลเดอร์ ./tools ของตัวโปรเจกต์เอง ข้ามปัญหาสิทธิ์ Root ของเครื่อง
+                    curl -SL https://github.com -o ./tools/docker-compose
+                    
+                    echo "-> ปรับสิทธิ์ให้สั่งรันไฟล์ได้..."
+                    chmod +x ./tools/docker-compose
+                    
+                    echo "-> สั่ง Deploy ระบบผ่าน Docker Compose ล่าสุด..."
+                    # เรียกใช้โดยตรงจากพาธที่ปลอดภัย มันจะมองเห็นไฟล์ docker-compose.yml ในโฟลเดอร์ทันที
+                    ./tools/docker-compose up -d --build
+                '''
+            }
+        }*/
+        stage('Docker Deploy with Compose'){
+            steps{
+                echo '=== 3. กำลัง Deploy ระบบผ่านไฟล์ docker-compose.yml ==='
+                // ใช้คำสั่งแบบมีขีดกลาง (V1) ซึ่งประมวลผลไฟล์ docker-compose.yml ได้เหมือนกัน 100%
+                sh 'docker compose up --build -d'
+            }
+        }
+
+
+    }
+    
+    post {
+        success {
+            echo "=== สำเร็จ! Spring Boot พร้อมใช้งานแล้วที่ http://localhost:8080 ==="
+        }
+        failure {
+            echo "=== ล้มเหลว! กรุณาเช็คอัปเดตล็อกใน Console ==="
+        }
+    }
+}

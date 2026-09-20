@@ -5,9 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.prototype.bean.request.ProductsFormRequest;
+import com.example.prototype.dto.ProductAddressDto;
 import com.example.prototype.dto.ProductsDto;
 
 @Mapper
 public interface MapperProductsRepository {
+	
 	List<ProductsDto> search(ProductsFormRequest productReq);
+	List<ProductAddressDto> searchAddress(ProductsFormRequest productReq);
+	
 }

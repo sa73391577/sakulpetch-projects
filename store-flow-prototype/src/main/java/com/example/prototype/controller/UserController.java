@@ -1,6 +1,7 @@
 package com.example.prototype.controller;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLongFieldUpdater;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.prototype.Constants;
 import com.example.prototype.bean.RespBean;
 import com.example.prototype.bean.UserBean;
 import com.example.prototype.bean.request.GetUserFormRequestBean;
 import com.example.prototype.bean.request.UserFormRequestBean;
+import com.example.prototype.constants.Constants;
 import com.example.prototype.services.UserDetailImp;
 import com.example.prototype.services.UserInfoService;
 
@@ -55,7 +56,7 @@ public class UserController {
 			log.info("add new user working !!! userInfo : {}",ToStringBuilder.reflectionToString(userInfo));
 			if(StringUtils.isNotBlank(userDetails.getUsername())) {
 				userInfo.setCreatedBy(userDetails.getUsername());
-				userInfoService.addUser(userInfo);
+				userInfoService.saveOrUpdateUser(userInfo);
 			}else {
 				throw new BadRequestException();
 			}
@@ -101,6 +102,29 @@ public class UserController {
 		}
 	}
 	
+	//R : Read
+	@PostMapping(value="/user-profile/username")
+	public ResponseEntity<RespBean> getUserProfileByUsername(HttpServletRequest request, @RequestBody GetUserFormRequestBean reqForm) {
+		log.debug("user-profile by username Working !!!");
+		if(null==reqForm || (StringUtils.isBlank(reqForm.getUsername()))) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+					new RespBean(Constants.STATUS_HTTP_CODE.CODE_BAD_REQUEST 
+							, Constants.STATUS_HTTP_MESSAGES.BAD_REQUEST
+							, null));
+		}
+		log.debug("reqForm.getUsername() : "+reqForm.getUsername());
+		UserBean ub = userInfoService.getUserByUsername(reqForm.getUsername());
+		if(null==ub) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_NOT_FOUND 
+					, Constants.STATUS_HTTP_MESSAGES.NOT_FOUND
+					, new RespBean(Constants.STATUS_HTTP_CODE.CODE_NOT_FOUND 
+							, Constants.STATUS_HTTP_MESSAGES.NOT_FOUND 
+							, Constants.ERROR_MESSAGES.USER_NOT_FOUND)));
+		}
+		return ResponseEntity.status(HttpStatus.OK).header("Custom-Header", "X-App-Version").contentType(MediaType.APPLICATION_JSON)
+				.body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_SUCCESS , Constants.STATUS_HTTP_MESSAGES.SUCCESS , ub));
+	}
+	
 	//R : Read.
 	@PostMapping(value = "/user-profile/user-login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RespBean> getUserProfileOfUserLogin(HttpServletRequest request, @RequestBody GetUserFormRequestBean reqForm) {
@@ -126,6 +150,53 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).header("Custom-Header", "X-App-Version").contentType(MediaType.APPLICATION_JSON)
 				.body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_SUCCESS , Constants.STATUS_HTTP_MESSAGES.SUCCESS , ub));
 	}
+	
+	
+		// U : Update
+		@PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<RespBean> updateUser(HttpServletRequest request
+				, @AuthenticationPrincipal UserDetailImp userDetails
+				, @RequestBody UserFormRequestBean userInfo) {
+			
+			log.info("Update User info Working !!!");
+			log.info("userInfo : {}",ToStringBuilder.reflectionToString(userInfo));
+			log.info("userDetails.getAuthorities() : {}",userDetails.getAuthorities().toString());
+			log.info("userDetails.getRegisterId() : {}",userDetails.getRegisterId());
+			
+			try {
+				log.info("add new user working !!! userInfo : {}",ToStringBuilder.reflectionToString(userInfo));
+				if(StringUtils.isNotBlank(userDetails.getUsername())) {
+					userInfo.setCreatedBy(userDetails.getUsername());
+					userInfoService.saveOrUpdateUser(userInfo);
+				}else {
+					throw new BadRequestException();
+				}
+			}
+			catch(BadRequestException eBad) {
+				log.error("BadRequestException error : {}",eBad.getMessage());
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+						new RespBean(Constants.STATUS_HTTP_CODE.CODE_BAD_REQUEST 
+								, Constants.STATUS_HTTP_MESSAGES.BAD_REQUEST
+								, null) );
+			}
+			catch(EntityNotFoundException eNotFound) {
+				log.error("EntityNotFoundException error : {}",eNotFound.getMessage());
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+						new RespBean(Constants.STATUS_HTTP_CODE.CODE_NOT_FOUND 
+								, Constants.STATUS_HTTP_MESSAGES.NOT_FOUND
+								, Constants.ERROR_MESSAGES.USER_CREATED_BY_NOT_FOUND) );
+			}
+			catch(IllegalArgumentException eFormat) {
+				log.error("IllegalArgumentException error : {}",eFormat.getMessage());
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+						new RespBean(Constants.STATUS_HTTP_CODE.CODE_BAD_REQUEST 
+								, Constants.STATUS_HTTP_MESSAGES.BAD_REQUEST
+								, null) );
+			}
+			return ResponseEntity.status(HttpStatus.OK).header("Custom-Header", "X-App-Version").body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_CREATED
+					, Constants.STATUS_HTTP_MESSAGES.CREATED
+					, null));
+		}
 	
 	// D : Delete
 	@DeleteMapping("/delete")

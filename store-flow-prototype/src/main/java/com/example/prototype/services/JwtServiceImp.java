@@ -67,6 +67,8 @@ public class JwtServiceImp {
 		
 		//Set Info in JWT Body.
 		claims.put("registerId", up.getId());
+		claims.put("username", userBean.getUsername());
+		claims.put("roles", userBean.getRoleNameEN());
 		
 		return createToken(claims, username);
 	}

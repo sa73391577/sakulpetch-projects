@@ -1,0 +1,18 @@
+global:
+  scrape_interval:     15s # กำหนดให้ Prometheus วิ่งไปดึงข้อมูลจากทุกตู้ทุกๆ 15 วินาที (ค่าเริ่มต้น)
+  evaluation_interval: 15s # กำหนดรอบเวลาในการประมวลผลเงื่อนไข Alert Rules (ถ้ามี)
+
+# ส่วนการตั้งค่าตำแหน่งที่จะให้ Prometheus วิ่งไปดึงข้อมูลออกมา (Scrape)
+scrape_configs:
+  # 1. ให้ Prometheus ดึงข้อมูลระบบของตัวมันเอง
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 2. ตั้งค่าดึงข้อมูลจากโปรเจกต์ Spring Boot (ตู้ prototype-api-backend)
+  - job_name: 'spring-boot-backend'
+    metrics_path: '/api/actuator/prometheus' # พาธมาตรฐานของ Spring Boot Micrometer
+    scrape_interval: 5s                 # อัปเดตข้อมูลถี่ขึ้นทุกๆ 5 วินาที เพื่อให้กราฟใน Grafana ขยับไวขึ้น
+    static_configs:
+      # ใช้ชื่อ container_name จากไฟล์ docker-compose.yml แทนการใส่ IP เครื่อง
+      - targets: ['prototype-api-backend:8080']

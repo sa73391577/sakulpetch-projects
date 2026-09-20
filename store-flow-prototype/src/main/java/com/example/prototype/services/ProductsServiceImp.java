@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.prototype.bean.request.ProductsFormRequest;
+import com.example.prototype.dto.ProductAddressDto;
 import com.example.prototype.dto.ProductsDto;
 import com.example.prototype.repository.mapper.MapperProductsRepository;
 
@@ -22,5 +23,15 @@ public class ProductsServiceImp implements ProductsService {
 	public List<ProductsDto> search(ProductsFormRequest prodReq) {
 		return mapperProductRepo.search(prodReq);
 	}
+
+	@Override
+	public List<ProductAddressDto> searchAddress(ProductsFormRequest prodReq) {
+		// TODO Auto-generated method stub
+		return mapperProductRepo.searchAddress(prodReq);
+	}
+	
+	
+	
+	
 	
 }

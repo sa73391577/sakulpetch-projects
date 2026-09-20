@@ -28,8 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Observed
 @RestController
-@RequestMapping("/products")
-public class ProductsController {
+@RequestMapping("/warehouses")
+public class WarehouseController {
 	
 	@Autowired private ProductsService productsService;
 	
@@ -51,20 +51,6 @@ public class ProductsController {
 	public ResponseEntity<RespBean> search(HttpServletRequest request, @RequestBody ProductsFormRequest reqForm) {
 		log.info("search working !!! reqForm : {}",ToStringBuilder.reflectionToString(reqForm));
 		List<ProductsDto> reslist = productsService.search(reqForm);
-		if(null!=reslist && reslist.size() > 0) {
-			return ResponseEntity.status(HttpStatus.OK).header("Custom-Header", "X-App-Version").contentType(MediaType.APPLICATION_JSON)
-					.body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_SUCCESS , Constants.STATUS_HTTP_MESSAGES.SUCCESS , reslist));
-		}else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_NOT_FOUND 
-					, Constants.STATUS_HTTP_MESSAGES.NOT_FOUND
-					, null));
-		}
-	}
-	
-	@PostMapping(value = "/address/search", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespBean> addressSearch(HttpServletRequest request, @RequestBody ProductsFormRequest reqForm) {
-		log.info("search working !!! reqForm : {}",ToStringBuilder.reflectionToString(reqForm));
-		List<ProductAddressDto> reslist = productsService.searchAddress(reqForm);
 		if(null!=reslist && reslist.size() > 0) {
 			return ResponseEntity.status(HttpStatus.OK).header("Custom-Header", "X-App-Version").contentType(MediaType.APPLICATION_JSON)
 					.body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_SUCCESS , Constants.STATUS_HTTP_MESSAGES.SUCCESS , reslist));

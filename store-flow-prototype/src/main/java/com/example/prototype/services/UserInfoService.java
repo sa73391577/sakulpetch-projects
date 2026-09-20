@@ -6,7 +6,7 @@ import com.example.prototype.bean.UserBean;
 import com.example.prototype.bean.request.UserFormRequestBean;
 
 public interface UserInfoService {
-	void addUser(UserFormRequestBean userInfo) throws BadRequestException;
+	void saveOrUpdateUser(UserFormRequestBean userInfo) throws BadRequestException;
 	boolean delUserByUsername(String username);
 	UserBean getUserByUsername(String username);
 	List<UserBean> getAllUser();

@@ -1,5 +1,6 @@
 package com.example.prototype.config;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -24,6 +25,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.prototype.exceptions.CustomAccessDeniedHandler;
 import com.example.prototype.filter.JwtAuthFilter;
@@ -66,15 +69,9 @@ public class WebSecurityConfig {
 		http
 				// Disable CSRF (not needed for stateless JWT)
 				// 1. ต้องเปิดใช้ CORS ตรงนี้เพื่อให้ Filter ทำงาน
-				.cors(cors -> cors.configurationSource(request -> {
-					CorsConfiguration config = new CorsConfiguration();
-					config.setAllowedOrigins(List.of("http://localhost:4200"));
-					config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-					config.setAllowedHeaders(List.of("*"));
-					config.setExposedHeaders(List.of("Custom-Header")); // สำคัญ: เพื่อให้ Angular อ่าน Header ได้
-					config.setAllowCredentials(true);
-					return config;
-				})).csrf(csrf -> csrf.disable())
+				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+				
+				.csrf(csrf -> csrf.disable())
 				
 				/* this point use custom Header.
 				 .headers(headers -> headers
@@ -88,7 +85,9 @@ public class WebSecurityConfig {
 				// Configure endpoint authorization
 				.authorizeHttpRequests(auth -> auth
 						// Public endpoints
-						.requestMatchers("/actuator/**", "/auth/**", "/health",
+						.requestMatchers(
+								"/actuator/**", 
+								"/auth/**", "/health",
 								"/v3/api-docs/**",
 				                "/swagger-ui/**",
 				                "/swagger-ui.html").permitAll()
@@ -134,5 +133,20 @@ public class WebSecurityConfig {
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
+	
+	@Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        
+        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // อนุญาต Angular พอร์ต 4200
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // อนุญาต Method ต่างๆ
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With")); // อนุญาต Header ที่จำเป็น
+        configuration.setExposedHeaders(List.of("Authorization")); // เปิดให้ Angular อ่านค่า Header นี้ได้ (ถ้าต้องเก็บ Token จาก Header)
+        configuration.setAllowCredentials(true); // อนุญาตให้ส่ง Cookie/Credentials ได้
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // ใช้คอนฟิกนี้กับทุกๆ Path ในระบบ
+        return source;
+    }
 
 }
