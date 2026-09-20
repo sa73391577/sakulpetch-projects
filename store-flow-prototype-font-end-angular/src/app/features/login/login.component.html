@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Login</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                        <div class="field-container">
+                            <label for="user-password">{{ 'form.username' | translate }} :</label>
+                            <div>
+                                <input type="text" formControlName="username"
+                                    [ngClass]="{'is-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}"
+                                    class="form-control" id="usernameInput" placeholder="Enter Username"
+                                    appOnlyAlphanumeric />
+                            </div>
+                        </div>
+
+                        <div class="field-container">
+                            <label for="user-password">{{ 'form.password' | translate }} :</label>
+                            <div class="input-wrapper">
+                                <input [type]="isShowPassword ? 'text' : 'password'" formControlName="password"
+                                    class="form-control" id="passwordInput"
+                                    [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+                                    appAlphanumericSpecial placeholder="Enter Password" />
+                                <button type="button" class="text-toggle-btn" (click)="togglePasswordVisibility()">
+                                    {{ isShowPassword ? ('button.hide'|translate) : ('button.show'|translate) }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="field-container">
+                            <button type="submit" class="btn btn-primary mr-2">
+                                {{ 'button.signin' | translate }}
+                            </button>
+                            <button type="reset" class="btn btn-warning mr-2">
+                                {{ 'button.reset' | translate }}
+                            </button>
+                        </div>
+
+                        <div class="field-container">
+                            <label class="text-center"> OR </label>
+                        </div>
+
+                        <div class="field-container">
+                            <button type="button" class="btn btn-success" (click)="redirectToSignupPage()">
+                                {{ 'button.signup' | translate }}
+                            </button>
+                        </div>
+
+                        <div class="field-container align-items-center">
+                            <app-switch-language></app-switch-language>
+                        </div>
+                    </form>
+
+                    @if(errorMessage){
+                    <p style="color: red; margin-top: 10px;">{{ errorMessage }}</p>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>

@@ -1,0 +1,311 @@
+<div class="modal fade" [ngClass]="{ 'show': isOpen()}" [style.display]="isOpen() ? 'block' : 'none'" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> {{ "modal.title.user.info" | translate}} </h5>
+                <button type="button" class="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="signupForm">
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right mr-4">
+                            {{ 'form.gender' | translate}} :
+                        </label>
+                        @for (item of genderRadio(); track $index) {
+                        <div class="col-sm-2 d-inline-flex align-items-center">
+                            <input type="radio" class="form-check-input ps-4" name="genderCode"
+                                [id]="'gender_' + item.code" formControlName="genderCode" [value]="item.code" />
+                            <label class="form-check-label m-0" [for]="'gender_' + item.code">
+                                @if(currentLang() == 'th'){
+                                {{item.nameTh}}
+                                }
+                                @else {
+                                {{item.nameEn}}
+                                }
+                            </label>
+                        </div>
+                        }
+                    </div>
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.name-th' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="nameTH" appThaiOnly [ngClass]="{ 'is-invalid' : signupForm.get('nameTH')?.invalid 
+                                    && signupForm.get('nameTH')?.touched }" />
+
+                            @if( signupForm.get('nameTH')?.touched && signupForm.get('nameTH')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('nameTH')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.surname-th' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="surnameTH" appThaiOnly [ngClass]="{ 'is-invalid' : signupForm.get('surnameTH')?.invalid 
+                                    && signupForm.get('surnameTH')?.touched }" />
+                            @if( signupForm.get('surnameTH')?.touched && signupForm.get('surnameTH')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('surnameTH')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.name-en' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="nameEN" appEnglishOnly [ngClass]="{ 'is-invalid' : signupForm.get('nameEN')?.invalid 
+                                    && signupForm.get('nameEN')?.touched }" />
+                            @if( signupForm.get('nameEN')?.touched && signupForm.get('nameEN')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('nameEN')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.surname-en' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="surnameEN" appEnglishOnly [ngClass]="{ 'is-invalid' : signupForm.get('surnameEN')?.invalid 
+                                    && signupForm.get('surnameEN')?.touched }" />
+                            @if( signupForm.get('surnameEN')?.touched && signupForm.get('surnameEN')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('surnameEN')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.id-card' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="idCard" appIdCardMask [ngClass]="{ 'is-invalid' : signupForm.get('idCard')?.invalid 
+                                    && signupForm.get('idCard')?.touched }" />
+
+
+                            @if( signupForm.get('idCard')?.touched && signupForm.get('idCard')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('idCard')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                                @else if(signupForm.get('idCard')?.hasError('invalidIdCard')) {
+                                <span>
+                                    {{ 'error.text.id.card.format.invalid' | translate}}
+                                </span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.mobile-number' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="mobilePhone" [ngClass]="{ 'is-invalid' : signupForm.get('mobilePhone')?.invalid 
+                                    && signupForm.get('mobilePhone')?.touched }" />
+
+                            @if( signupForm.get('mobilePhone')?.touched &&
+                            signupForm.get('mobilePhone')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('mobilePhone')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                                @else if(signupForm.get('mobilePhone')?.hasError('invalidMobile')){
+                                <span> {{ 'error.validate.mobile.phone.format.invalid' | translate }} </span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.telephone-number' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="telephone" [ngClass]="{ 'is-invalid' : signupForm.get('telephone')?.invalid 
+                                    && signupForm.get('telephone')?.touched }" />
+                            @if( signupForm.get('telephone')?.touched &&
+                            signupForm.get('telephone')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('telephone')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }} </span>
+                                }
+                                @else if(signupForm.get('telephone')?.hasError('invalidTelephone')){
+                                <span> {{ 'error.validate.telephone.format.invalid' | translate }} </span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.email' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="email" [ngClass]="{ 'is-invalid' : signupForm.get('email')?.invalid 
+                                    && signupForm.get('email')?.touched }" />
+                            @if( signupForm.get('email')?.touched &&
+                            signupForm.get('email')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('email')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                                @else if(signupForm.get('email')?.errors?.['email']) {
+                                <span> {{ 'error.validate.email.format.invalid' | translate }} </span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 align-items-center">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.brith-date' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <app-datepicker formControlName="brithDate"></app-datepicker>
+                            @if( signupForm.get('brithDate')?.touched && signupForm.get('brithDate')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('brithDate')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.username' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            @if(userNameInput()){
+                            <label class="col-form-label">
+                                {{ signupForm.get('username')?.value }}
+                            </label>
+                            }
+                            @else{
+                            <input class="form-control" formControlName="username" [ngClass]="{ 'is-invalid' : signupForm.get('username')?.invalid 
+                                    && signupForm.get('username')?.touched }" />
+
+                            @if( signupForm.get('username')?.touched && signupForm.get('username')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('username')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                            }
+
+
+                        </div>
+                    </div>
+
+                    @if(!userNameInput()){
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.password' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="password" type="password" [ngClass]="{ 'is-invalid' : signupForm.get('password')?.invalid 
+                                    && signupForm.get('password')?.touched }" />
+
+                            @if( signupForm.get('password')?.touched && signupForm.get('password')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('password')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.confirm-password' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <input class="form-control" formControlName="confirmPassword" type="password"
+                                [ngClass]="{ 'is-invalid' : signupForm.get('confirmPassword')?.invalid 
+                                    && signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.hasError('passwordMismatch')}" />
+                            @if( signupForm.get('confirmPassword')?.touched &&
+                            signupForm.get('confirmPassword')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('confirmPassword')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+
+                                @else if (signupForm.get('confirmPassword')?.hasError('passwordMismatch')) {
+                                <span>
+                                    {{ 'error.validate.confirm.password.missmatch' | translate }}
+                                </span>
+                                }
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                    }
+
+                    <div class="row mb-4">
+                        <label class="col-sm-5 col-form-label text-sm-right">
+                            {{ 'form.role' | translate}} :
+                        </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" formControlName="roleCode">
+                                <option value="" selected>{{ "text.please.select.role" | translate}}</option>
+                                @for(role of rolesSelected() ; track $index){
+                                <option [value]="role.code">{{ role.nameTh }} ({{ role.nameEn }})</option>
+                                }
+                            </select>
+                            @if( signupForm.get('roleCode')?.touched && signupForm.get('roleCode')?.invalid ){
+                            <div class="text-danger">
+                                @if(signupForm.get('roleCode')?.errors?.['required']){
+                                <span> {{ 'error.validate.required' | translate }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">
+                    {{ "button.close" | translate}}
+                </button>
+                <button type="button" class="btn btn-primary" (click)="submitForm()">
+                    {{ "button.confirm" | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(isOpen()){
+<div class="modal-backdrop fade show"></div>
+}

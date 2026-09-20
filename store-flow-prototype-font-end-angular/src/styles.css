@@ -1,0 +1,125 @@
+/* You can add global styles to this file, and also import other style files */
+input.border-red {
+    border: 2px solid red !important;
+    outline: none;
+}
+
+.field-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 10px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 10px 55px 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.text-toggle-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0066cc;
+    margin-right: 10px;
+}
+
+.text-toggle-btn:hover {
+    color: #004499;
+    text-decoration: underline;
+}
+
+/* ตกแต่งสไตล์ปุ่มภาษา */
+.lang-btn {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #94a3b8;
+    /* สีเทาปกติ */
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* เอฟเฟกต์ตอนเมาส์ชี้ปุ่มภาษา */
+.lang-btn:hover {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+/* ไฮไลต์เมื่อกำลังใช้งานภาษานั้นอยู่ */
+.lang-btn.active {
+    background-color: #2563eb;
+    /* ใช้สีน้ำเงินสว่างโทนเดียวกับเมนู Active */
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* เส้นคั่นกลาง */
+.divider {
+    color: #475569;
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+/* บังคับให้กล่องปฏิทิน Material ทุกตัวมีพื้นหลังสีขาวและมีเงาคมชัด */
+.mat-datepicker-content {
+    background-color: #ffffff !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0px 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 12px !important;
+    /* ปรับให้ขอบมนสวยงามสไตล์มินิมอล */
+}
+
+/* เพิ่มความทึบให้แผงควบคุมวันที่ภายใน */
+.mat-calendar {
+    background-color: #ffffff !important;
+}
+
+fa-icon {
+    cursor: pointer;
+}
+
+
+/* บังคับให้หน้าต่าง Modal แสดงผลเลเยอร์ให้ถูกต้อง */
+.modal.show {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* เพิ่ม Backdrop พื้นหลังสีดำจางๆ แบบ Bootstrap */
+}
+
+/* จัดการให้ส่วนของ dialog คำนวณความสูงกับหน้าจอและสกรอลล์ได้จริง */
+.modal.show .modal-dialog-scrollable {
+    max-height: calc(100% - 3.5rem);
+    display: flex;
+}
+
+.modal.show .modal-dialog-scrollable .modal-content {
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.modal.show .modal-dialog-scrollable .modal-body {
+    overflow-y: auto;
+}

@@ -1,0 +1,89 @@
+{
+    "menu": {
+        "title": {
+            "user.management": "User Management"
+        },
+        "dashboard": "Dashboard",
+        "user-management": "User Management",
+        "sign-up": "Register",
+        "logout": "Logout"
+    },
+    "system": {
+        "title": "Talent System (Prototype)"
+    },
+    "form": {
+        "name-th": "NAME (TH)",
+        "surname-th": "SURNAME (TH)",
+        "name-en": "Name (EN)",
+        "surname-en": "Surname (EN)",
+        "id-card": "ID CARD",
+        "mobile-number": "MOBILE PHONE",
+        "telephone-number": "TELEPHONE",
+        "brith-date": "BRITH DATE",
+        "username": "USERNAME",
+        "password": "PASSWORD",
+        "confirm-password": "CONFIRM PASSWORD",
+        "role": "ROLE",
+        "gender": "GENDER",
+        "email": "EMAIL"
+    },
+    "button": {
+        "signin": "Sign In",
+        "signup": "Sign Up",
+        "reset": "Reset",
+        "back": "Back",
+        "show": "Show",
+        "hide": "Hide",
+        "confirm": "confirm",
+        "cancel": "cancel",
+        "close": "close",
+        "add.user": "ADD USER"
+    },
+    "modal": {
+        "title": {
+            "save.success": "SAVE SUCCESS",
+            "user.info": "User Information",
+            "user.not.found": "Not Found User Information"
+        },
+        "message": {
+            "save.user.success": "Save user information successed.",
+            "not.found.user.info.specified": "No information found for the specified user."
+        }
+    },
+    "text": {
+        "please.select": {
+            "role": "please , select role"
+        },
+        "please.datepicker": {
+            "value": "please , Date input"
+        }
+    },
+    "table": {
+        "user": {
+            "column": {
+                "name.th": "NAME - SURNAME (TH)",
+                "name.en": "NAME - SURNAME (EN)",
+                "username": "USERNAME",
+                "role.name": "ROLE",
+                "email": "EMAIL",
+                "telephone": "TELEPHONE",
+                "brith.date": "BRITH DATE",
+                "age": "AGE"
+            }
+        }
+    },
+    "error": {
+        "validate": {
+            "required": "Please enter your information.",
+            "id.card.format.invalid": "The national ID number does not match the format of the Ministry of Interior's database.",
+            "mobile.phone.format.invalid": "Please enter the mobile number in the correct format.",
+            "telephone.format.invalid": "Please enter the phone number in the correct format.",
+            "email.format.invalid": "Please enter a valid email format.",
+            "confirm.password.missmatch": "Passwords do not match. Please check again."
+        },
+        "text": {
+            "no.data.user": "No user information available, or data is being loaded...",
+            "server.error.call.admin": "Please contact your administrator."
+        }
+    }
+}

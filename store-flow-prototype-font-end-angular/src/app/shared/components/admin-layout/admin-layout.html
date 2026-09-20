@@ -1,0 +1,20 @@
+<div class="admin-container">
+    <!-- ปุ่ม Hamburger บนมือถือ (เรียกใช้ฟังก์ชัน toggleMenu จากตัวแปร sidebar) -->
+    <button class="hamburger-btn" (click)="sidebar.toggleMenu()">
+        <span class="bar" [class.animate]="sidebar.isMenuOpen"></span>
+        <span class="bar" [class.animate]="sidebar.isMenuOpen"></span>
+        <span class="bar" [class.animate]="sidebar.isMenuOpen"></span>
+    </button>
+
+    <!-- หน้ากากโปร่งแสงด้านหลัง (เรียกใช้ฟังก์ชันปิดเมนูจากตัวแปร sidebar) -->
+    <div class="sidebar-overlay" [class.show]="sidebar.isMenuOpen" (click)="sidebar.toggleMenu()"></div>
+
+    <!-- ใส่ชื่อตัวแปร #sidebar เพื่อให้ปุ่มด้านบนอ้างอิงถึงได้ -->
+    <app-sidebar #sidebar class="sidebar-area"></app-sidebar>
+
+    <div class="main-content">
+        <main class="page-body">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>

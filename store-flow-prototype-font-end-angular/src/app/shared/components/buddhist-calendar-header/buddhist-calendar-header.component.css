@@ -1,0 +1,54 @@
+.custom-datepicker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    font-family: inherit;
+    width: 100%;
+    /* บังคับให้ขยายเต็มความกว้างปฏิทิน */
+    box-sizing: border-box;
+}
+
+.header-label-btn {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b !important;
+    /* 🌟 บังคับสีตัวอักษรให้เป็นสีเข้มชัดเจน ไม่ให้โปร่งใส */
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    min-width: 100px;
+    /*ล็อกพื้นที่ให้ตัวหนังสือโชว์ได้เต็มคำ ไม่เด้งตกขอบ */
+    text-align: left;
+}
+
+.header-label-btn:hover {
+    background: #f1f5f9;
+}
+
+.header-nav-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    color: #475569 !important;
+    /* สีกำหนดชัดเจนสำหรับปุ่มลูกศร */
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: #f1f5f9;
+}

@@ -1,0 +1,38 @@
+<!-- ปุ่ม Hamburger จะแสดงเฉพาะบนมือถือ -->
+<button class="hamburger-btn" (click)="toggleMenu()">
+    <span class="bar" [class.animate]="isMenuOpen"></span>
+    <span class="bar" [class.animate]="isMenuOpen"></span>
+    <span class="bar" [class.animate]="isMenuOpen"></span>
+</button>
+
+<!-- ใส่เงาพื้นหลังเมื่อเมนูเปิดบนมือถือ เพื่อกดปิดเมนูได้ -->
+<div class="sidebar-overlay" [class.show]="isMenuOpen" (click)="toggleMenu()"></div>
+
+<!-- ตัวโครง Sidebar เดิมของคุณ โดยผูกคลาส 'open' ตามสถานะ -->
+<div class="sidebar-wrapper" [class.open]="isMenuOpen">
+    <div class="sidebar-brand">
+        <h2>My App</h2>
+    </div>
+    <div class="lang-switcher">
+        <app-switch-language></app-switch-language>
+    </div>
+    <nav class="sidebar-menu">
+        <ul>
+            <li>
+                <a routerLink="/dashboard" routerLinkActive="active" (click)="toggleMenu()">
+                    {{ 'menu.dashboard' | translate }}
+                </a>
+            </li>
+            <li>
+                <a routerLink="/user-management" routerLinkActive="active" (click)="toggleMenu()">
+                    {{ 'menu.user-management' | translate }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar-footer">
+        <button (click)="onLogout()" class="btn-logout">
+            <span class="icon">🚪</span> {{ 'menu.logout' | translate }}
+        </button>
+    </div>
+</div>
