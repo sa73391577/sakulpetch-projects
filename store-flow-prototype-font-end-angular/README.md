@@ -1,5 +1,4 @@
-# 🚀 Store Flow Prototype (`store-flow-prototype`) 
-# [Angular Version 21]
+# 🚀 Store Flow Prototype (`store-flow-prototype`)
 
 **Store Flow Prototype** is a modern, high-performance web application prototype designed to simulate and optimize retail/store workflows. Built on **Angular 21**, the platform leverages **Server-Side Rendering (SSR)** to achieve fast initial page loads, seamless user interactions, and robust SEO capabilities.
 
