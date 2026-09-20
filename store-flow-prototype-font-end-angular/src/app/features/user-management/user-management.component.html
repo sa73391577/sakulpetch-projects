@@ -1,0 +1,66 @@
+<div class="row mb-2">
+    <div class="col-sm text-sm-start">
+        <h3>{{'menu.title.user.management' | translate}}</h3>
+    </div>
+</div>
+<hr>
+
+<div class="row align-items-rigth mb-4">
+    <div class="col-sm text-sm-right">
+        <button class="btn btn-success" (click)="openUserDetailModal(null)">
+            {{ "button.add.user" | translate}}
+        </button>
+    </div>
+</div>
+
+<div class="row align-items-center">
+    <div class="col-sm text-sm-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{{ 'table.user.column.name.th' | translate}}</th>
+                    <th>{{ 'table.user.column.name.en' | translate}}</th>
+                    <th>{{ 'table.user.column.username' | translate}}</th>
+                    <th>{{ 'table.user.column.role.name' | translate}}</th>
+                    <th>{{ 'table.user.column.email' | translate}}</th>
+                    <th>{{ 'table.user.column.telephone' | translate}}</th>
+                    <th>{{ 'table.user.column.brith.date' | translate}}</th>
+                    <th>{{ 'table.user.column.age' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- @for(user of userList() ; track user.id){ -->
+                @for(user of userList() ; track $index){
+                <tr>
+                    <td>{{$index + 1}}</td>
+                    <td>{{ user.nameTH }} {{ user.surnameTH }} </td>
+                    <td>{{ user.nameEN }} {{ user.surnameEN }} </td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.roleNameTH?.join('\\n ') || '-' }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.telephone }}</td>
+                    <td>{{ user.brithDate | thaiDate }}</td>
+                    <td>{{ user.brithDate | age }}</td>
+                    <td>
+                        <fa-icon class="mr-2" [icon]="faPenToSquare"
+                            (click)="openUserDetailModal(user?.username)"></fa-icon>
+                        <fa-icon class="mr-2" [icon]="faTrash"></fa-icon>
+                    </td>
+                </tr>
+                }
+                @empty{
+                <tr>
+                    <td colspan="10" class="text-center text-muted">
+                        {{ "error.text.no.data.user" | translate }}
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<app-user-form-modal [isOpen]="modalStatus()" [userNameInput]="userNameSelected()"
+    (closeEmitModal)="handleCloseModal()"></app-user-form-modal>

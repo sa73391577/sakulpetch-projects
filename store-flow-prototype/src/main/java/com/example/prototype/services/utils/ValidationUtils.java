@@ -2,6 +2,9 @@ package com.example.prototype.services.utils;
 
 import java.util.regex.Pattern;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class ValidationUtils {
 	
 	//this error if new Object.
@@ -10,12 +13,14 @@ public final class ValidationUtils {
 	}
 	
 	private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
-
+	
+	//If Correct = true.
     public static boolean isValidEmail(String email) {
         if (email == null) return false;
         return EMAIL_PATTERN.matcher(email).matches();
     }
 	
+    //If Correct = true.
     public static boolean isValidIdCard(String idCard) {
     	
     	idCard = idCard.replace("-", "").trim();

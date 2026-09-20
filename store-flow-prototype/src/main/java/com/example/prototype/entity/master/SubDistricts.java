@@ -26,6 +26,9 @@ public class SubDistricts extends BaseEntity {
 	@Column(name="code")
 	private String code;
 	
+	@Column(name="zip_code")
+	private String zipCode;
+	
 	@Column(name="name_th")
 	private String nameTh;
 	

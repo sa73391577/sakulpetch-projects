@@ -1,0 +1,89 @@
+{
+    "menu": {
+        "title": {
+            "user.management": "จัดการข้อมูลผู้ใช้งาน"
+        },
+        "dashboard": "หน้าหลัก",
+        "user-management": "จัดการผู้ใช้งาน",
+        "sign-up": "สมัครสมาชิก",
+        "logout": "ออกจากระบบ"
+    },
+    "system": {
+        "title": "ระบบรวบรวมผลงาน (Prototype)"
+    },
+    "form": {
+        "name-th": "ชื่อ (ภาษาไทย)",
+        "surname-th": "นามสกุล (ภาษาไทย)",
+        "name-en": "ชื่อ (ภาษาอังกฤษ)",
+        "surname-en": "นามสกุล (ภาษาอังกฤษ)",
+        "id-card": "รหัสบัตรประชาชน",
+        "mobile-number": "เบอร์มือถือ",
+        "telephone-number": "เบอร์โทรบ้าน",
+        "brith-date": "วันเกิด",
+        "username": "ชื่อผู้ใช้งาน",
+        "password": "รหัสผ่าน",
+        "confirm-password": "ยืนยันรหัสผ่าน",
+        "role": "ตำเเหน่ง",
+        "gender": "เพศ",
+        "email": "อีเมล"
+    },
+    "button": {
+        "signin": "เข้าสู่ระบบ",
+        "signup": "ลงทะเบียน",
+        "reset": "ล้างข้อมูล",
+        "back": "ย้อนกลับ",
+        "show": "แสดง",
+        "hide": "ซ่อน",
+        "confirm": "ยืนยัน",
+        "cancel": "ยกเลิก",
+        "close": "ปิด",
+        "add.user": "เพิ่มผู้ใช้งาน"
+    },
+    "modal": {
+        "title": {
+            "save.success": "บันทึกข้อมูลเสร็จสิ้น",
+            "user.info": "ข้อมูลผู้ใช้งาน",
+            "user.not.found": "ไม่พบข้อมูลผู้ใช้งาน"
+        },
+        "message": {
+            "save.user.success": "บันทึกข้อมูลผู้ใช้งานเสร็จสิ้น",
+            "not.found.user.info.specified": "ไม่พบข้อมูลของผู้ใช้งานที่ระบุ"
+        }
+    },
+    "text": {
+        "please.select": {
+            "role": "กรุณาเลือกหน้าที่"
+        },
+        "please.datepicker": {
+            "value": "กรุณาเลือกวันที่"
+        }
+    },
+    "table": {
+        "user": {
+            "column": {
+                "name.th": "ชื่อ - นามสกุล (ไทย)",
+                "name.en": "ชื่อ - นามสกุล (อังกฤษ)",
+                "username": "ชื่อผู้ใช้",
+                "role.name": "หน้าที่",
+                "email": "อีเมล",
+                "telephone": "เบอร์โทร",
+                "brith.date": "วันเกิด",
+                "age": "อายุ"
+            }
+        }
+    },
+    "error": {
+        "validate": {
+            "required": "กรุณากรอกข้อมูล",
+            "id.card.format.invalid": "เลขบัตรประชาชนไม่ถูกต้องตามรูปแบบฐานข้อมูลมหาดไทย",
+            "mobile.phone.format.invalid": "กรุณากรอกรูปแบบมือถือให้ถูกต้อง",
+            "telephone.format.invalid": "กรุณากรอกรูปแบบเบอร์โทรให้ถูกต้อง",
+            "email.format.invalid": "กรุณาระบุรูปแบบอีเมลให้ถูกต้อง",
+            "confirm.password.missmatch": "รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง"
+        },
+        "text": {
+            "no.data.user": "ไม่มีข้อมูลผู้ใช้งาน หรือกำลังโหลดข้อมูล...",
+            "server.error.call.admin": "กรุณาติดต่อผู้ดูเเลระบบ"
+        }
+    }
+}

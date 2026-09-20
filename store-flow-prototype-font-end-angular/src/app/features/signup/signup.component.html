@@ -1,0 +1,157 @@
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center" style="background-color: green;">
+                    <h4 style="color: black;"> {{ 'menu.sign-up' | translate }} </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-sm  d-flex justify-content-end">
+                            <app-switch-language></app-switch-language>
+                        </div>
+                    </div>
+                    <form [formGroup]="signupForm" (ngSubmit)="submitSignUpForm()">
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.name-th' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="nameTH" appThaiOnly [ngClass]="{ 'is-invalid' : signupForm.get('nameTH')?.invalid 
+                                    && signupForm.get('nameTH')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.surname-th' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="surnameTH" appThaiOnly [ngClass]="{ 'is-invalid' : signupForm.get('surnameTH')?.invalid 
+                                    && signupForm.get('surnameTH')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.name-en' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="nameEN" appEnglishOnly [ngClass]="{ 'is-invalid' : signupForm.get('nameEN')?.invalid 
+                                    && signupForm.get('nameEN')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.surname-en' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="surnameEN" appEnglishOnly [ngClass]="{ 'is-invalid' : signupForm.get('surnameEN')?.invalid 
+                                    && signupForm.get('surnameEN')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.id-card' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="idCard" appIdCardMask [ngClass]="{ 'is-invalid' : signupForm.get('idCard')?.invalid 
+                                    && signupForm.get('idCard')?.touched }" />
+                                @if (signupForm.get('idCard')?.touched &&
+                                signupForm.get('idCard')?.hasError('invalidIdCard')) {
+                                <div class="text-danger small mt-1">
+                                    เลขบัตรประชาชนไม่ถูกต้องตามรูปแบบฐานข้อมูลมหาดไทย
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.mobile-number' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="mobilePhone" [ngClass]="{ 'is-invalid' : signupForm.get('mobilePhone')?.invalid 
+                                    && signupForm.get('mobilePhone')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.telephone-number' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="telephone" [ngClass]="{ 'is-invalid' : signupForm.get('telephone')?.invalid 
+                                    && signupForm.get('telephone')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2 align-items-center">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.brith-date' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <app-datepicker formControlName="brithDate"></app-datepicker>
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.username' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="username" [ngClass]="{ 'is-invalid' : signupForm.get('username')?.invalid 
+                                    && signupForm.get('username')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.password' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="password" [ngClass]="{ 'is-invalid' : signupForm.get('password')?.invalid 
+                                    && signupForm.get('password')?.touched }" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <label class="col-sm-5 col-form-label text-sm-right">
+                                {{ 'form.confirm-password' | translate}} :
+                            </label>
+                            <div class="col-sm-7">
+                                <input class="form-control" formControlName="confirmPassword"
+                                    [ngClass]="{ 'is-invalid' : signupForm.get('confirmPassword')?.invalid 
+                                    && signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.hasError('passwordMismatch')}" />
+                                @if (signupForm.get('confirmPassword')?.hasError('passwordMismatch')) {
+                                <div class="invalid-feedback">
+                                    รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง
+                                </div>
+                                }
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-sm  d-flex justify-content-center">
+                                <button type="button" class="btn btn-warning mr-2" (click)="backToLoginPage()">
+                                    {{ 'button.back' | translate}}
+                                </button>
+                                <button class="btn btn-success">
+                                    {{ 'button.signup' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>

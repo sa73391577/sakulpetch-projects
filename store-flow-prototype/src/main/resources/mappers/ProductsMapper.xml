@@ -19,7 +19,7 @@
 		ps.name_en as 'statusNameEn'
 		from MS_PRODUCTS p
 		left join MS_PRODUCT_GROUPS pg on p.product_group_code = pg.code
-		left join TR_PRODUCT_EXPIRE_DATE ped on p.code = ped.product_code
+		left join TR_SHELF_PRODUCTS ped on p.code = ped.product_code
 		left join MS_PRODUCT_STATUS ps on ped.product_status_code = ps.code
 		<where>
 			<if test=" null != searchNameTh and '' != searchNameTh  ">
@@ -63,4 +63,59 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="searchAddress"
+		parameterType="com.example.prototype.bean.request.ProductsFormRequest"
+		resultType="com.example.prototype.dto.ProductAddressDto">
+			select  
+				prod.name_th 'productNameTh',
+				prod.name_en 'productNameEn',
+			    ware.name_th 'warehouseNameTh',
+				ware.name_en 'warehouseNameEn',
+			    wareAddr.house_no 'warehouseHouseNo',
+			    wareAddr.telephone 'warehouseTel',
+			    wareAddr.mobile_phone 'warehouseMobile',
+			    subDis.name_th 'subDisNameTh',
+			    subDis.name_en 'subDisNameEn',
+			    dis.name_th 'disNameTh',
+			    dis.name_en 'disNameEn',
+			    pro.name_th 'provNameTh',
+			    pro.name_en 'provNameEn'
+			from MS_PRODUCTS prod
+			inner join TR_PRODUCTS_IN_WAREHOUSE prodInWare on prod.code = prodInWare.product_code
+			inner join MS_WAREHOUSES ware on ware.code = prodInWare.warhouse_code
+			inner join MS_WAREHOUSE_ADDRESS wareAddr on ware.addr_code = wareAddr.code
+			inner join MS_SUB_DISTRICTS subDis on wareAddr.sub_district_code =  subDis.code
+			inner join MS_DISTRICTS dis on subDis.district_code = dis.code
+			inner join MS_PROVINCES pro on dis.province_code = pro.code
+			order by prod.name_th
+	</select>
+	
+	
+	<select id="searchForm"
+		parameterType="com.example.prototype.bean.request.ProductsFormRequest"
+		resultType="com.example.prototype.dto.ProductAddressDto">
+			select  
+				prod.name_th 'productNameTh',
+				prod.name_en 'productNameEn',
+			    groupProd.name_th 'productGroupNameTh',
+			    groupProd.name_en 'productGroupNameEn',
+			    ware.name_th 'warehouseNameTh',
+				ware.name_en 'warehouseNameEn',
+			    wareAddr.telephone 'warehouseTel',
+			    wareAddr.mobile_phone 'warehouseMobile',
+			    statProd.name_th 'statusNameTh',
+				statProd.name_en 'statusNameEn',
+				ware.id 'warehouseId',
+				statProd.id 'statusId'
+			from MS_PRODUCTS prod
+			inner join TR_PRODUCTS_IN_WAREHOUSE prodInWare on prod.code = prodInWare.product_code
+			inner join MS_WAREHOUSES ware on ware.code = prodInWare.warhouse_code
+			inner join MS_WAREHOUSE_ADDRESS wareAddr on ware.addr_code = wareAddr.code
+			inner join TR_SHELF_PRODUCTS shelfProd on shelfProd.product_code = prod.code
+			inner join MS_PRODUCT_STATUS statProd on statProd.code = shelfProd.product_status_code
+			inner join MS_PRODUCT_GROUPS groupProd on groupProd.code = prod.product_group_code
+	</select>
+	
+	
 </mapper>

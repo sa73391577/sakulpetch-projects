@@ -1,13 +1,16 @@
 package com.example.prototype.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.prototype.Constants;
 import com.example.prototype.bean.RoleBean;
 import com.example.prototype.bean.request.RoleFormRequestBean;
+import com.example.prototype.constants.Constants;
 import com.example.prototype.entity.master.Roles;
 import com.example.prototype.repository.jpa.RolesRepository;
 
@@ -42,6 +45,25 @@ public class RoleServiceImp implements RoleService {
 		r = rolesRepo.save(r);
 		r.setCode(String.format(Constants.FORMATE_CODE_TABLE.ROLES_TB, r.getId()));
 		rolesRepo.save(r);
+	}
+
+	@Override
+	public List<RoleBean> list() {
+		List<Roles> roles =  rolesRepo.findAll();
+		
+		if(null!=roles && roles.size() > 0 ) {
+			List<RoleBean> rbList = new ArrayList<RoleBean>();
+			for(Roles r : roles ) {
+				RoleBean rb = new RoleBean();
+				rb.setCode(r.getCode());
+				rb.setNameTH(r.getNameTh());
+				rb.setNameEN(r.getNameEn());
+				rbList.add(rb);
+			}
+			return rbList;
+		}
+		
+		return null;
 	}
 	
 }

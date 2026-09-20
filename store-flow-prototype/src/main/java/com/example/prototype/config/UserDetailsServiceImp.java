@@ -32,6 +32,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 		logger.info("loadUserByUsername working !!!");
 		logger.info("username : {}",username);
 		Users u = usersRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("User Not Found Username : "+username));
+		logger.info("connect db for check username success : {}",username);
 		if(logger.isDebugEnabled()) {
 			logger.debug("user log in info : {}",ToStringBuilder.reflectionToString(u));
 		}

@@ -27,7 +27,9 @@ public class UserBean {
 	private String idCard;
 	private String email;
 	private String gender;
+	private String genderCode;
 	private LocalDate brithDate;
+	private String roleCode;
 	private String roleNameTH;
 	private String roleNameEN;
 }

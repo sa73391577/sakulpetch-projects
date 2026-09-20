@@ -1,0 +1,12 @@
+<div class="custom-datepicker-header">
+    <!-- ปุ่มแสดง เดือน พ.ศ. ปัจจุบัน -->
+    <button class="header-label-btn" (click)="currentPeriodClicked()">
+        {{ periodLabel }}
+    </button>
+
+    <!-- ปุ่มเปลี่ยนเดือน ซ้าย-ขวา -->
+    <div class="header-nav-buttons">
+        <button class="nav-btn" (click)="previousClicked()">&lt;</button>
+        <button class="nav-btn" (click)="nextClicked()">&gt;</button>
+    </div>
+</div>

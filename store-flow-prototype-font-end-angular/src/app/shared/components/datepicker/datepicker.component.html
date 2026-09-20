@@ -1,0 +1,6 @@
+<mat-form-field class="w-100">
+    <input matInput [matDatepicker]="picker" [placeholder]="placeholder" [(ngModel)]="value" [disabled]="isDisabled"
+        (dateChange)="onDateSelect($event.value)" [errorStateMatcher]="errorMatcher">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker [calendarHeaderComponent]="headerComponent"></mat-datepicker>
+</mat-form-field>

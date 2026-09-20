@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    environment {
+        CONTAINER_NAME = "protoype-angular-21"
+        IMAGE_NAME     = "protoype-angular-21:latest"
+    }
+
+    stages {
+        // สเตจดึงโค้ดจาก Git จะถูกจัดการให้อัตโนมัติโดย Jenkins 
+        // เราเริ่มเขียนสเตจตรวจสอบคอนเทนเนอร์ต่อได้เลย
+
+        stage('Check & Clean') {
+            steps {
+                echo '=== 1. ตรวจสอบและลบ Container เก่า ==='
+                script {
+                    sh '''
+                        if [ "$(docker ps -aq -f name=^${CONTAINER_NAME}$)" ]; then
+                            echo "พบ Container เก่าชื่อ ${CONTAINER_NAME} -> กำลังลบออก..."
+                            docker rm -f ${CONTAINER_NAME}
+                        else
+                            echo "ไม่พบ Container เก่า สามารถดำเนินการต่อได้"
+                        fi
+                    '''
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                echo '=== 2. กำลังทำการ Build Docker Image จาก Git ==='
+                sh "docker build -t ${IMAGE_NAME} ."
+            }
+        }
+
+        stage('Docker Deploy') {
+            steps {
+                echo '=== 3. กำลังรัน Container ใหม่ที่พอร์ต 80 ==='
+                sh "docker run -d -p 80:80 --add-host=host.docker.internal:host-gateway --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo "=== สำเร็จ! เข้าเว็บได้ที่ http://localhost ==="
+        }
+        failure {
+            echo "=== ล้มเหลว! ตรวจสอบสเตจที่มีปัญหาใน Console ==="
+        }
+    }
+}

@@ -11,9 +11,9 @@ version = '0.0.1-SNAPSHOT'
 description = 'Prototype project for Spring Boot'
 
 java {
-	toolchain {
+	/*toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
-	}
+	}*/
 }
 
 repositories {

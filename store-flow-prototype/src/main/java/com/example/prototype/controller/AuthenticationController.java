@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.prototype.Constants;
 import com.example.prototype.bean.JwtTokenBean;
 import com.example.prototype.bean.RespBean;
 import com.example.prototype.bean.UserTokenBean;
+import com.example.prototype.constants.Constants;
 import com.example.prototype.entity.auth.AuthRequest;
 import com.example.prototype.exceptions.ErrorMessage;
 import com.example.prototype.services.JwtServiceImp;

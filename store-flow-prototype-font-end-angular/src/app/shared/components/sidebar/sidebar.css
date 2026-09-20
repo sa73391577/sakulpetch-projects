@@ -1,0 +1,262 @@
+:host {
+    display: block;
+}
+
+/* --- สไตล์เริ่มต้นสำหรับปุ่ม Hamburger และ Overlay (ซ่อนไว้ก่อนในคอม) --- */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1100;
+}
+
+.hamburger-btn .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+/* --- โค้ดสำหรับหน้าจอคอมพิวเตอร์ (ขนาด 769px ขึ้นไป) --- */
+@media (min-width: 769px) {
+    .sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #1e293b;
+        color: #cbd5e1;
+        z-index: 1000;
+    }
+}
+
+/* --- โค้ดสำหรับหน้าจอมือถือ (ขนาดไม่เกิน 768px) --- */
+@media (max-width: 768px) {
+
+    /* แสดงปุ่ม Hamburger */
+    .hamburger-btn {
+        display: flex;
+        position: fixed;
+        top: 16px;
+        left: 16px;
+    }
+
+    /* เปลี่ยนปุ่ม Hamburger เป็นเครื่องหมาย X เมื่อเปิดเมนู */
+    .hamburger-btn .bar.animate:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger-btn .bar.animate:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-btn .bar.animate:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* ซ่อน Sidebar ไว้ทางซ้ายนอกหน้าจอ (-260px) */
+    .sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 260px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #1e293b;
+        color: #cbd5e1;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        /* เพิ่มแอนิเมชันตอนสไลด์เข้า-ออก */
+    }
+
+    /* สไลด์เข้ามาในหน้าจอเมื่อมีคลาส .open */
+    .sidebar-wrapper.open {
+        left: 0;
+    }
+
+    /* แสดงเงาพื้นหลังเมื่อเปิดเมนู */
+    .sidebar-overlay.show {
+        display: block;
+    }
+}
+
+/* --- สไตล์ส่วนประกอบภายใน Sidebar (ใช้ร่วมกันทั้งคอมและมือถือ) --- */
+.sidebar-brand {
+    padding: 24px;
+    text-align: center;
+    border-bottom: 1px solid #334155;
+}
+
+.sidebar-brand h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-menu {
+    flex: 1;
+    padding: 20px 0;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 8px;
+    padding: 0 16px;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu a:hover {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+.sidebar-menu a.active {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.icon {
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid #334155;
+}
+
+.btn-logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: transparent;
+    color: #f87171;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: #ef4444;
+    color: #ffffff;
+    border-color: #ef4444;
+}
+
+.top-nav {
+    height: 60px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* ดันเนื้อหาซ้ายและกลุ่มปุ่มภาษาไปขวาสุด */
+    padding: 0 24px;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: bold;
+}
+
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* จัดให้อยู่กึ่งกลางในแนวนอน */
+    gap: 12px;
+    /* ระยะห่างระหว่างปุ่ม */
+    padding: 20px 16px;
+    /* เว้นระยะห่างจากขอบล่างของหน้าจอ */
+    border-top: 1px solid #334155;
+    /* เพิ่มเส้นคั่นให้ดูเป็นสัดส่วน (ลบออกได้ถ้าชอบแบบโล่งๆ) */
+    background-color: #111827;
+    /* ปรับพื้นหลังให้เข้มขึ้นเล็กน้อยเพื่อให้แยกจากเมนูชัดเจน */
+}
+
+/* ตกแต่งสไตล์ปุ่มภาษา */
+.lang-btn {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #94a3b8;
+    /* สีเทาปกติ */
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* เอฟเฟกต์ตอนเมาส์ชี้ปุ่มภาษา */
+.lang-btn:hover {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+/* ไฮไลต์เมื่อกำลังใช้งานภาษานั้นอยู่ */
+.lang-btn.active {
+    background-color: #2563eb;
+    /* ใช้สีน้ำเงินสว่างโทนเดียวกับเมนู Active */
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* เส้นคั่นกลาง */
+.divider {
+    color: #475569;
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+
+
+@media (max-width: 768px) {
+    .hamburger-btn {
+        display: flex;
+        position: fixed;
+        top: 19px;
+        /* จัดกึ่งกลางพอดีกับความสูง top-nav 60px */
+        left: 16px;
+        z-index: 1100;
+        /* อยู่ชั้นบนสุดเสมอ */
+    }
+}

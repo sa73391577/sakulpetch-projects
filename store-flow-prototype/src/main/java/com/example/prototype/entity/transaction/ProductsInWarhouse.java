@@ -1,10 +1,10 @@
 package com.example.prototype.entity.transaction;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.example.prototype.entity.master.ProductStatus;
 import com.example.prototype.entity.master.Products;
+import com.example.prototype.entity.master.Warehouses;
 import com.example.prototype.entity.utils.BaseEntity;
 
 import jakarta.persistence.Column;
@@ -20,8 +20,8 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-@Table(name = "TR_PRODUCT_EXPIRE_DATE")
-public class ProductExpireDate extends BaseEntity {
+@Table(name = "TR_PRODUCTS_IN_WARHOUSE")
+public class ProductsInWarhouse extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,4 +48,10 @@ public class ProductExpireDate extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "product_status_code", referencedColumnName = "code")
 	private ProductStatus productStatus;
+	
+	// warhouse_code
+	@ManyToOne
+	@JoinColumn(name = "warhouse_code", referencedColumnName = "code")
+	private Warehouses warhouse;
+	
 }

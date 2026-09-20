@@ -10,19 +10,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.prototype.Constants;
 import com.example.prototype.bean.RespBean;
 import com.example.prototype.bean.RoleBean;
 import com.example.prototype.bean.UserBean;
 import com.example.prototype.bean.request.GetUserFormRequestBean;
 import com.example.prototype.bean.request.RoleFormRequestBean;
 import com.example.prototype.bean.request.UserFormRequestBean;
+import com.example.prototype.constants.Constants;
 import com.example.prototype.entity.master.Users;
 import com.example.prototype.services.RoleService;
 import com.example.prototype.services.UserDetailImp;
@@ -107,5 +108,24 @@ public class RoleController {
 		return ResponseEntity.status(HttpStatus.OK).header("Custom-Header", "X-App-Version").contentType(MediaType.APPLICATION_JSON)
 				.body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_SUCCESS , Constants.STATUS_HTTP_MESSAGES.SUCCESS , rb));
 	}
+	
+	@GetMapping(value="/list", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<RespBean> list(HttpServletRequest request) {
+		log.info("list of Role Working !!!");
+		
+		List<RoleBean> rbList = roleService.list();
+		
+		if(null == rbList) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_NOT_FOUND 
+					, Constants.STATUS_HTTP_MESSAGES.NOT_FOUND
+					, new RespBean(Constants.STATUS_HTTP_CODE.CODE_NOT_FOUND 
+							, Constants.STATUS_HTTP_MESSAGES.NOT_FOUND 
+							, Constants.ERROR_MESSAGES.USER_NOT_FOUND)));
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).header("Custom-Header", "X-App-Version").contentType(MediaType.APPLICATION_JSON)
+				.body(new RespBean(Constants.STATUS_HTTP_CODE.CODE_SUCCESS , Constants.STATUS_HTTP_MESSAGES.SUCCESS , rbList));
+	}
+	
 
 }
